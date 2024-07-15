@@ -19,13 +19,13 @@ var overrides = {
   logLevel: "error",
 
   services: [
-    ['selenium-standalone', { args: { DRIVERS: drivers }, installArgs: { DRIVERS: drivers } }],
+    // ['selenium-standalone', { args: { DRIVERS: drivers }, installArgs: { DRIVERS: drivers } }],
   ],
 
   capabilities: [
     {
-      browserName: browserName,
-    },
+      browserName: browserName
+    }
   ],
 };
 
