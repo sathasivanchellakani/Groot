@@ -16,12 +16,10 @@ describe('Random User Generator', async () => {
         await waitForPageLoad();
         const email = await (await randomuser.email()).getAttribute('data-value');
         const name = await (await randomuser.name()).getAttribute('data-value');
-        console.log(email + ' -- ' + name)
         await browser.refresh();
         await waitForPageLoad();
         const email1 = await (await randomuser.email()).getAttribute('data-value');
         const name1 = await (await randomuser.name()).getAttribute('data-value');
-        console.log(email1 + ' -- ' + name1)
         expect(email).not.toBe(email1);
         expect(name).not.toBe(name1)
     });
@@ -112,7 +110,6 @@ describe('Random User Generator', async () => {
         await waitForPageLoad();
         const email1 = await (await randomuser.email()).getAttribute('data-value');
         const name1 = await (await randomuser.name()).getAttribute('data-value');
-        console.log(email1 + ' -- ' + name1)
         expect(name1).not.toBe('Jitendra Jawale');
         expect(email1).not.toBe('jjawale@altimetrik.com')
     });
