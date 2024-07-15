@@ -601,6 +601,17 @@ https://o365altimetrik-my.sharepoint.com/:w:/g/personal/ggawali_altimetrik_com/E
 
 </details>
 
+<details>
+<summary style= "font-size : 17px;font-weight : bold;font-style : italic;">Browserstack Integration</summary>
+
+To run the tests against browserstack machines, set the `BS_USER` and `BS_KEY` environment properties and execute below command
+```
+SET NODE_ENV=dev&& npx wdio .\config-wdio\bs.conf.ts --spec <path to test case>
+```
+
+To update or include multiple browsers with multiple versions, add them in `bs.conf.ts` capabilities
+</details>
+
 ## **code Examples**
 1. WDIO test folder and specs - groot\test\specs
 ```

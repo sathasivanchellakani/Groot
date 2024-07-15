@@ -58,11 +58,11 @@ export const config: WebdriverIO.Config = {
             transpileOnly: true,
             project: "tsconfig.json",
         },
-    // tsconfig-paths is only used if "tsConfigPathsOpts" are provided, if you
-    // do please make sure "tsconfig-paths" is installed as dependency
-    // tsConfigPathsOpts: {
-    //     baseUrl: './'
-    // }
+        // tsconfig-paths is only used if "tsConfigPathsOpts" are provided, if you
+        // do please make sure "tsconfig-paths" is installed as dependency
+        // tsConfigPathsOpts: {
+        //     baseUrl: './'
+        // }
     },
     //
     // ==================
@@ -80,10 +80,11 @@ export const config: WebdriverIO.Config = {
     // then the current working directory is where your `package.json` resides, so `wdio`
     // will be called from there.
     //
-    specs: ["./test/specs/**.*.ts"],
+    // specs: ["./test/specs/**.*.ts"],
+    specs: ["./test/specs/mock.example/*.ts", "./test/specs/forgotPassword.spec.ts"],
     // Patterns to exclude.
     exclude: [
-    // 'path/to/excluded/files'
+        // 'path/to/excluded/files'
     ],
     //
     // ============
@@ -112,7 +113,7 @@ export const config: WebdriverIO.Config = {
             // maxInstances can get overwritten per capability. So if you have an in-house Selenium
             // grid with only 5 firefox instances available you can make sure that not more than
             // 5 instances get started at a time.
-            maxInstances: 1,
+            maxInstances: 10,
             //
             browserName: "chrome",
             acceptInsecureCerts: true,
@@ -164,6 +165,11 @@ export const config: WebdriverIO.Config = {
     //
     // Default request retries count
     connectionRetryCount: 3,
+
+    // hostname: "localhost",
+    // port: 4444,
+    // path: '/wd/hub/',
+    // protocol: 'http',
     //
     // Test runner services
     // Services take over a specific job you don't want to take care of. They enhance
@@ -180,7 +186,13 @@ export const config: WebdriverIO.Config = {
                 commandPrefix: "VARIABLE=true", //Prefix which will be added to the re-run command that is generated.
             },
         ],
-        [RpService, {}],
+        // Commented below service as this will spam the teams channel
+        // ["ms-teams", {
+        //     webhookURL: "https://o365altimetrik.webhook.office.com/webhookb2/668c9e64-4c58-4cc6-b583-3e62c84db025@e9cb3c80-4156-4c39-a7fe-68fe427a3d46/IncomingWebhook/38c566ef6a994fbf86aed3c93d678ab9/135f2e23-38fe-4c09-9649-c6f189cccbd0",
+        //     failingTestsOnly: true,
+        //     message: 'Notification from Groot'
+        // }]
+        // [RpService, {}],
     ],
 
     // Framework you want to run your specs with.
@@ -214,20 +226,20 @@ export const config: WebdriverIO.Config = {
             },
         ],
 
-        [
-            reportportal,
-            {
-                reportPortalClientConfig: {
-                    token: "39dba234-6d5e-4582-bc65-0b4eb5eeeb32",
-                    endpoint: "http://54.219.33.119:4000/api/v1",
-                    launch: "Groot_test_execution",
-                    project: "hello",
-                    mode: "DEFAULT",
-                    debug: false,
-                    description: "Groot with Analytics",
-                },
-            },
-        ],
+        // [
+        //     reportportal,
+        //     {
+        //         reportPortalClientConfig: {
+        //             token: "39dba234-6d5e-4582-bc65-0b4eb5eeeb32",
+        //             endpoint: "http://54.219.33.119:4000/api/v1",
+        //             launch: "Groot_test_execution",
+        //             project: "hello",
+        //             mode: "DEFAULT",
+        //             debug: false,
+        //             description: "Groot with Analytics",
+        //         },
+        //     },
+        // ],
     ],
 
     // Options to be passed to Mocha.
@@ -236,7 +248,7 @@ export const config: WebdriverIO.Config = {
         ui: "bdd",
         timeout: 60000,
         bail: true,
-    // retries: 3,
+        // retries: 3,
     },
     //
     // =====
@@ -252,16 +264,16 @@ export const config: WebdriverIO.Config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    */
     onPrepare: function (config, capabilities) {
-        rpClient.checkConnect().then(
-            (response) => {
-                console.log("You have successfully connected to the server.");
-                console.log(`You are using an account: ${response.fullName}`);
-            },
-            (error) => {
-                console.log("Error connection to server");
-                console.dir(error);
-            }
-        );
+        // rpClient.checkConnect().then(
+        //     (response) => {
+        //         console.log("You have successfully connected to the server.");
+        //         console.log(`You are using an account: ${response.fullName}`);
+        //     },
+        //     (error) => {
+        //         console.log("Error connection to server");
+        //         console.dir(error);
+        //     }
+        // );
     },
     /**
    * Gets executed before a worker process is spawned and can be used to initialise specific service
@@ -381,17 +393,17 @@ export const config: WebdriverIO.Config = {
         if (error) {
             browser.saveScreenshot(
                 "./screenshot/" +
-        test.title +
-        "_" +
-        commonUtils.generateFileNameWithTimeStamp()
+                test.title +
+                "_" +
+                commonUtils.generateFileNameWithTimeStamp()
             );
         }
         if (result === "skip") {
             browser.saveScreenshot(
                 "./screenshot/" +
-        test.title +
-        "_" +
-        commonUtils.generateFileNameWithTimeStamp()
+                test.title +
+                "_" +
+                commonUtils.generateFileNameWithTimeStamp()
             );
         }
 
@@ -501,7 +513,6 @@ export const config: WebdriverIO.Config = {
                 );
             }
         }
-
         if (results.failed == this.bail) {
             console.log(chalk.red.underline.bold("******* BAILING OUT *******"));
             console.table({
